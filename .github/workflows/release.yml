@@ -1,0 +1,58 @@
+# Manual workflow to release new package version
+name: Manual-Version-Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      changeLog:
+        description: 'Change Log'
+        required: true
+        default: 'Update...'
+      releaseType:
+        type: choice
+        description: Select version pump type
+        options:
+        - major
+        - minor
+        - patch
+         
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - run: echo 'Starting the workflow'
+
+      - name: Get current tag
+        run: |
+          echo "CURRENT_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+     
+      - name: Set new tag
+        run: |
+          major=`echo $version | cut -d. -f1`
+          major=`echo "${major:1}"`
+          minor=`echo $version | cut -d. -f2`
+          patch=`echo $version | cut -d. -f3`
+
+          if [[ ${{ gihub.event.inputs.releaseType }} == major]]; then
+            major=`expr $major + 1`
+          elseif  [[ ${{ gihub.event.inputs.releaseType }} == minor]]; then
+            minor=`expr $minor + 1`
+          else
+            patch=`expr $patch + 1`
+          fi
+
+          echo "RELEASE_VERSION=v$major.$minor.$revision" >> $GITHUB_ENV
+      - name: 'Log inputs'
+        run: |
+          echo "Change log: ${{ github.event.inputs.changeLog }}"
+          echo "releaseType: ${{ gihub.event.inputs.releaseType }}"
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
+
+      - name: "Build Changelog"
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@{latest-release}

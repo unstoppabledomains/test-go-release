@@ -1,0 +1,58 @@
+# Manual workflow to release new package version
+name: Manual-Version-Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      changeLog:
+        description: 'Change Log'
+        required: true
+        default: 'Update...'
+      releaseType:
+        type: choice
+        description: Select version pump type
+        options:
+        - major
+        - minor
+        - patch
+         
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - run: echo 'Starting the workflow'
+
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        if: ${{ steps.release-label.outputs.level != null }}
+
+      - name: Get current tag
+        run: |
+          echo "CURRENT_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+     
+      - name: Set new tag
+        run: |
+          major=`echo $version | cut -d. -f1`
+          major=`echo "${major:1}"`
+          minor=`echo $version | cut -d. -f2`
+          patch=`echo $version | cut -d. -f3`
+
+          # if [[ env.RELEASE_TYPE == major ]]; then
+          #   major=`expr $major + 1`
+          # elseif [[ env.RELEASE_TYPE == minor ]]; then
+          #   minor=`expr $minor + 1`
+          # else
+          #   patch=`expr $patch + 1`
+          # fi
+
+          echo "RELEASE_VERSION=v$major.$minor.$revision" >> $GITHUB_ENV
+      - name: 'Log inputs'
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ steps.get-latest-tag.outputs.tag }}
+          echo ${{ env.CURRENT_VERSION }}
+          echo ${{ env.RELEASE_VERSION }}

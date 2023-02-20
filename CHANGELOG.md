@@ -1,3 +1,7 @@
+## v6.0.0 - 2023-02-20
+
+something important
+
 ## v5.0.1 - 2023-02-20
 
 Update... 123

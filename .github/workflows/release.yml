@@ -27,7 +27,7 @@ jobs:
       - uses: oprypin/find-latest-tag@v1
         id: get-latest-tag
         with:
-          repository: unstoppabledomains/test-go-release
+          repository: unstoppabledomains/resolution-swift
           releases-only: false
 
       - name: 'Get next versions'
@@ -40,11 +40,11 @@ jobs:
         id: set-new-tag
         run: |
           if [[ ${{ github.event.inputs.releaseType }} == major ]]; then
-            echo "tag=${{ steps.semvers.outputs.v_major }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ steps.semvers.outputs.major }}" >> $GITHUB_OUTPUT
           elif [[ ${{ github.event.inputs.releaseType }} == minor ]]; then
-            echo "tag=${{ steps.semvers.outputs.v_minor }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ steps.semvers.outputs.minor }}" >> $GITHUB_OUTPUT
           else
-            echo "tag=${{ steps.semvers.outputs.v_patch }}" >> $GITHUB_OUTPUT
+            echo "tag=${{ steps.semvers.outputs.patch }}" >> $GITHUB_OUTPUT
           fi
       - name: 'Log inputs'
         run: |

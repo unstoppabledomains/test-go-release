@@ -7,10 +7,10 @@ on:
       changeLog:
         description: 'Change Log'
         required: true
-        default: 'Update...'
+        default: ''
       releaseType:
         type: choice
-        description: Select version pump type
+        description: Select major/minor/patch
         options:
         - major
         - minor
@@ -21,9 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    steps:
-      - uses: actions/checkout@v2
-      
+    steps:      
       - run: echo 'Starting the workflow'
 
       - uses: oprypin/find-latest-tag@v1

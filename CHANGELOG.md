@@ -1,3 +1,7 @@
+## v6.1.0 - 2023-02-20
+
+something something
+
 ## v6.0.0 - 2023-02-20
 
 something important

@@ -24,11 +24,13 @@ jobs:
     steps:      
       - run: echo 'Starting the workflow'
 
-      - uses: oprypin/find-latest-tag@v1
-        id: get-latest-tag
+      - uses: actions/checkout@v3
         with:
-          repository: unstoppabledomains/resolution-swift
-          releases-only: false
+          fetch-depth: 0
+
+      - name: 'Get Previous tag'
+        id: get-latest-tag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
 
       - name: 'Get next versions'
         id: semvers

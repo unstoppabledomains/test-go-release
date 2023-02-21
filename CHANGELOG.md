@@ -1,5 +1,9 @@
 # Resolution-swift CHANGELOG
 
+## 5.4.0 - 2023-02-21
+
+some small change
+
 ## 5.2.3 - 2023-02-21
 
 some change

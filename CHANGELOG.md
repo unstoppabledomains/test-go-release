@@ -1,5 +1,9 @@
 # Resolution-swift CHANGELOG
 
+## 5.2.3 - 2023-02-21
+
+some change
+
 ## 5.3.0 - 2023-02-21
 
 upate something

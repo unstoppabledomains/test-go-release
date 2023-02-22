@@ -1,5 +1,9 @@
 # Resolution-swift CHANGELOG
 
+## v9.5.2 - 2023-02-22
+
+good version
+
 ## 5.3.0 - 2023-02-21
 
 upate something

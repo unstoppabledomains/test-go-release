@@ -1,5 +1,9 @@
 # Resolution-swift CHANGELOG
 
+## v6.5.1 - 2023-03-19
+
+test test
+
 ## v9.5.2 - 2023-02-22
 
 good version

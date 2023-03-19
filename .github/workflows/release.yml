@@ -46,6 +46,7 @@ jobs:
       - name: Commit updated CHANGELOG
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
+          token: ${{ secrets.RELEASE_TOKEN }}
           branch: ${{ github.event.release.target_commitish }}
           commit_message: Release new version ${{ github.event.inputs.releaseVersion }}
           file_pattern: CHANGELOG.md

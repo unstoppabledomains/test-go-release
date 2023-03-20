@@ -16,6 +16,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:      
       - run: echo 'Starting the workflow'
@@ -23,6 +25,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: main
+          token: ${{ secrets.RELEASE_SECRET }}
 
       - name: 'Validate version input'
         run: |
@@ -46,7 +50,6 @@ jobs:
       - name: Commit updated CHANGELOG
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: release/${{ github.event.inputs.releaseVersion }}
-          create_branch: true
+          branch: ${{ github.event.release.target_commitish }}
           commit_message: Release new version ${{ github.event.inputs.releaseVersion }}
           file_pattern: CHANGELOG.md

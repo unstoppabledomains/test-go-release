@@ -1,5 +1,9 @@
 # Resolution-swift CHANGELOG
 
+## v7.1.12 - 2023-03-20
+
+dasd dasda
+
 ## v7.1.8 - 2023-03-19
 
 sdas dasda
